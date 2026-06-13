@@ -176,8 +176,9 @@ def _final_assembly(
     safe_title      = title.replace("'", "\\'").replace(":", "\\:")[:60]
 
     # Subtitle filter — bottom center, white with black outline
+    escaped_srt_path = srt_path.replace("\\", "/").replace(":", "\\:")
     sub_filter = (
-        f"subtitles={srt_path}:force_style='"
+        f"subtitles={escaped_srt_path}:force_style='"
         f"FontSize={font_size_sub},"
         f"PrimaryColour=&H00FFFFFF,"
         f"OutlineColour=&H00000000,"
@@ -197,13 +198,13 @@ def _final_assembly(
         f"enable='between(t,0,3)'"
     )
 
-    filter_complex = f"{sub_filter},{title_filter}"
+    vf_chain = f"{sub_filter},{title_filter}"
 
     cmd = [
         "ffmpeg", "-y",
         "-i", video_path,
         "-i", audio_path,
-        "-filter_complex", filter_complex,
+        "-vf", vf_chain,
         "-map", "0:v",
         "-map", "1:a",
         "-c:v", "libx264",
