@@ -1,12 +1,14 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import ScriptEditor from "./components/ScriptEditor";
 import Channels from "./components/Channels";
 import Dashboard from "./components/Dashboard";
+import VideoEditor from "./components/VideoEditor";
 import "./App.css";
 
 const NAV = [
-  { id: "dashboard", label: "Dashboard", icon: "🏠" },
-  { id: "script", label: "Script Editor", icon: "✍️" },
+  { id: "dashboard", label: "Dashboard", icon: "📊" },
+  { id: "script", label: "Script Editor", icon: "📝" },
+  { id: "editor", label: "Video Editor", icon: "🎬" },
   { id: "channels", label: "Channels", icon: "📺" },
 ];
 
@@ -32,11 +34,12 @@ export default function App() {
             </button>
           ))}
         </nav>
-        <div className="sidebar-footer">v1.0.0</div>
+        <div className="sidebar-footer">v1.1.0</div>
       </aside>
       <main className="main-content">
         {active === "dashboard" && <Dashboard setActive={setActive} />}
         {active === "script" && <ScriptEditor />}
+        {active === "editor" && <VideoEditor />}
         {active === "channels" && <Channels />}
       </main>
     </div>
